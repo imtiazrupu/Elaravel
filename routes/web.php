@@ -18,3 +18,10 @@
 Route::get('/','LayoutController@index');
 
 
+// Backend Site
+Route::group(['as'=>'admin.','prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::get('/login','AdminController@login');
+Route::get('/dashboard','AdminController@index')->name('dashboard');
+});
+
+
