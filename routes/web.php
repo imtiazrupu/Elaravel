@@ -15,13 +15,20 @@
     return view('layout');
 });
 */
-Route::get('/','LayoutController@index');
 
+Route::get('/', 'HomeController@index')->name('home');
 
 // Backend Site
-Route::group(['as'=>'admin.','prefix' => 'admin', 'namespace' => 'Admin'], function () {
-Route::get('/login','AdminController@login');
+Route::group(['as'=>'admin.','prefix' => 'admin', 'namespace' => 'Admin','middleware'=>['auth','admin']], function () {
+// Route::get('/login','AdminController@login');
 Route::get('/dashboard','AdminController@index')->name('dashboard');
 });
 
+
+
+Auth::routes();
+
+Route::group(['as'=>'user.','prefix' => 'user', 'namespace' => 'User','middleware'=>['auth','user']], function () {
+    Route::get('/profile','UserController@index')->name('profile');
+});
 
