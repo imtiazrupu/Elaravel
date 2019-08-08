@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title','Profile')
 @section('content')
 <li>
     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

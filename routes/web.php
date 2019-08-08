@@ -22,6 +22,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['as'=>'admin.','prefix' => 'admin', 'namespace' => 'Admin','middleware'=>['auth','admin']], function () {
 // Route::get('/login','AdminController@login');
 Route::get('/dashboard','AdminController@index')->name('dashboard');
+Route::resource('category','CategoryController');
+Route::put('/category/inactive/{id}','CategoryController@inactive')->name('category.inactive');
+Route::put('/category/active/{id}','CategoryController@active')->name('category.active');
 });
 
 

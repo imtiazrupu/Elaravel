@@ -1,155 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Mirrored from bootstrapmaster.com/live/metro/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 Jan 2018 16:56:12 GMT -->
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- start: Meta -->
-	<meta charset="utf-8">
-	<title>Metro Admin Template - Metro UI Style Bootstrap Admin Template</title>
-	<meta name="description" content="Metro Admin Template.">
-	<meta name="author" content="Łukasz Holeczek">
-	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-	<!-- end: Meta -->
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<!-- start: Mobile Specific -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- end: Mobile Specific -->
+    <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+     <!-- Favicon-->
+     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-	<!-- start: CSS -->
-    <link id="bootstrap-style" href="{{asset('assets/backend/css/bootstrap.min.css')}}" rel="stylesheet">
-	<link href="{{asset('assets/backend/css/bootstrap-responsive.min.css')}}" rel="stylesheet">
-	<link id="base-style" href="{{asset('assets/backend/css/style.css')}}" rel="stylesheet">
-	<link id="base-style-responsive" href="{{asset('assets/backend/css/style-responsive.css')}}" rel="stylesheet">
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
-	<!-- end: CSS -->
+     <!-- Google Fonts -->
+     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
+     <!-- Bootstrap Core Css -->
+<link href="{{asset('assets')}}/backend/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	  	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<link id="ie-style" href="css/ie.css" rel="stylesheet">
-	<![endif]-->
+     <!-- Waves Effect Css -->
+     <link href="{{asset('assets')}}/backend/plugins/node-waves/waves.css" rel="stylesheet" />
 
-	<!--[if IE 9]>
-		<link id="ie9style" href="css/ie9.css" rel="stylesheet">
-	<![endif]-->
+     <!-- Animation Css -->
+     <link href="{{asset('assets')}}/backend/plugins/animate-css/animate.css" rel="stylesheet" />
 
-	<!-- start: Favicon -->
-	<link rel="shortcut icon" href="img/favicon.ico">
-	<!-- end: Favicon -->
+     <!-- Morris Chart Css-->
+     <link href="{{asset('assets')}}/backend/plugins/morrisjs/morris.css" rel="stylesheet" />
 
+     <!-- Custom Css -->
+     <link href="{{asset('assets')}}/backend/css/style.css" rel="stylesheet">
 
+     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+     <link href="{{asset('assets')}}/backend/css/themes/all-themes.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
+    @stack('css')
 
 </head>
+<body class="theme-blue">
+        <div class="page-loader-wrapper">
+                <div class="loader">
+                    <div class="preloader">
+                        <div class="spinner-layer pl-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Please wait...</p>
+                </div>
+            </div>
+            <!-- #END# Page Loader -->
+            <!-- Overlay For Sidebars -->
+            <div class="overlay"></div>
+            <!-- #END# Overlay For Sidebars -->
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <div class="search-icon">
+                    <i class="material-icons">search</i>
+                </div>
+                <input type="text" placeholder="START TYPING...">
+                <div class="close-search">
+                    <i class="material-icons">close</i>
+                </div>
+            </div>
+            <!-- #END# Search Bar -->
+            <!-- Top Bar -->
+            @include('backend.partial.topbar')
+            <!-- #Top Bar -->
+            <section>
+                <!-- Left Sidebar -->
+                @include('backend.partial.sidebar')
+                <!-- #END# Left Sidebar -->
+                <!-- Right Sidebar -->
 
-<body>
-		<!-- start: Header -->
-        @include('backend.partial.topbar')
-        <!-- start: Header -->
-        <div class="container-fluid-full">
-            <div class="row-fluid">
+            </section>
 
-			<!-- start: Main Menu -->
-			@include('backend.partial.sidebar')
-			<!-- end: Main Menu -->
-
-			<noscript>
-				<div class="alert alert-block span10">
-					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
-				</div>
-			</noscript>
-
-            <!-- start: Content -->
-            <div id="content" class="span10">
-
+            <section class="content">
                 @yield('content')
+            </section>
+                <!-- Jquery Core Js -->
+    <script src="{{asset('assets')}}/backend/plugins/jquery/jquery.min.js"></script>
 
-            </div><!--/.fluid-container-->
+    <!-- Bootstrap Core Js -->
+    <script src="{{asset('assets')}}/backend/plugins/bootstrap/js/bootstrap.js"></script>
 
-            <!-- end: Content -->
-        </div><!--/#content.span10-->
-    </div><!--/fluid-row-->
+    <!-- Select Plugin Js -->
+   {{-- <script src="{{asset('assets')}}/backend/plugins/bootstrap-select/js/bootstrap-select.js"></script> --}}
 
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Settings</h3>
-		</div>
-		<div class="modal-body">
-			<p>Here settings can be configured...</p>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
-		</div>
-	</div>
+    <!-- Slimscroll Plugin Js -->
+    <script src="{{asset('assets')}}/backend/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-	<div class="clearfix"></div>
+    <!-- Waves Effect Plugin Js -->
+    <script src="{{asset('assets')}}/backend/plugins/node-waves/waves.js"></script>
 
-	@include('backend.partial.footer')
+    <!-- Custom Js -->
+    <script src="{{asset('assets')}}/backend/js/admin.js"></script>
 
-	<!-- start: JavaScript-->
 
-        <script src="{{asset('assets/backend')}}/js/jquery-1.9.1.min.js"></script>
-	    <script src="{{asset('assets/backend')}}/js/jquery-migrate-1.0.0.min.js"></script>
+    <!-- Demo Js -->
+    <script src="{{asset('assets')}}/backend/js/demo.js"></script>
+    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+        <script>
+            @if($errors->any())
+            @foreach($errors->all() as $error)
+            toastr.error('{{$error}}','Error',{
+                closeButton:true,
+                progressBar:true,
+            });
+            @endforeach
+            @endif
+        </script>
 
-		<script src="{{asset('assets/backend')}}/js/jquery-ui-1.10.0.custom.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.ui.touch-punch.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/modernizr.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/bootstrap.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.cookie.js"></script>
-
-		<script src='{{asset('assets/backend')}}/js/fullcalendar.min.js'></script>
-
-		<script src='{{asset('assets/backend')}}/js/jquery.dataTables.min.js'></script>
-
-		<script src="{{asset('assets/backend')}}/js/excanvas.js"></script>
-    	<script src="{{asset('assets/backend')}}/js/jquery.flot.js"></script>
-    	<script src="{{asset('assets/backend')}}/js/jquery.flot.pie.js"></script>
-	    <script src="{{asset('assets/backend')}}/js/jquery.flot.stack.js"></script>
-	    <script src="{{asset('assets/backend')}}/js/jquery.flot.resize.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.chosen.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.uniform.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.cleditor.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.noty.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.elfinder.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.raty.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.iphone.toggle.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.uploadify-3.1.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.gritter.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.imagesloaded.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.masonry.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.knob.modified.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/jquery.sparkline.min.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/counter.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/retina.js"></script>
-
-		<script src="{{asset('assets/backend')}}/js/custom.js"></script>
-	<!-- end: JavaScript-->
-
+    @stack('js')
 </body>
-
-<!-- Mirrored from bootstrapmaster.com/live/metro/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 Jan 2018 16:56:47 GMT -->
 </html>
+
