@@ -41,10 +41,11 @@
 
 
     <script src="{{asset('assets/frontend/js/jquery.js')}}"></script>
-	<script src="{{asset('assets/frontend/assets/frontend/js/bootstrap.min.js')}}"></script>
+	<script src="{{asset('assets/frontend/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('assets/frontend/js/jquery.scrollUp.min.js')}}"></script>
 	<script src="{{asset('assets/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('assets/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('assets/frontend/js/main.js')}}"></script>
+    @stack('js')
 </body>
 </html>

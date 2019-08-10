@@ -53,6 +53,13 @@
                  </a>
             </li>
 
+            <li class="{{Request::is('admin/subcategory*')? 'active' : ''}}">
+                <a href="{{route('admin.subcategory.index')}}">
+                   <i class="material-icons">library_books</i>
+                   <span>SubCategory</span>
+                </a>
+           </li>
+
            <li>
                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
