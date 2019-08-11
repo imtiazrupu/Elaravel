@@ -201,6 +201,13 @@ class SubCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $subcategory = SubCategory::find($id);
+        if(Storage::disk('public')->exists('subcategory/'.$subcategory->image))
+            {
+                storage::disk('public')->delete('subcategory/'.$subcategory->image);
+            }
+        $subcategory->delete();
+        Toastr::success('SubCategory Delete Successfully', 'Success');
+        return redirect()->back();
     }
 }
