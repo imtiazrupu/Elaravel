@@ -208,7 +208,7 @@ swalWithBootstrapButtons.fire({
 
             swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
-            text: "You want to inactive this Category!",
+            text: "You want to inactive this SubCategory!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, inactive it!',
@@ -224,7 +224,7 @@ swalWithBootstrapButtons.fire({
             ) {
                 swalWithBootstrapButtons.fire(
                 'Cancelled',
-                'The category remains active :)',
+                'The Subcategory remains active :)',
                 'info'
                 )
             }

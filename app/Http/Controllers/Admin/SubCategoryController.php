@@ -103,7 +103,9 @@ class SubCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all();
+        $subcategory = SubCategory::find($id);
+        return view('admin.subcategory.edit',compact('subcategory','categories'));
     }
 
     /**
@@ -115,7 +117,80 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'image' => 'mimes:jpg,bmp,png,jpeg'
+        ]);
+        // get form image
+        $image = $request->file('image');
+        $slug = str_slug($request->name);
+        $subcategory = SubCategory::find($id);
+        if(isset($image))
+        {
+            // make unique name for image
+            $currentDate = Carbon::now()->toDateString();
+            $imageName = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+            // check category directory is exists
+            if(!Storage::disk('public')->exists('subcategory'))
+            {
+                Storage::disk('public')->makeDirectory('subcategory');
+            }
+            // delete old image
+            if(Storage::disk('public')->exists('subcategory/'.$subcategory->image))
+            {
+                storage::disk('public')->delete('subcategory/'.$subcategory->image);
+            }
+            // resize image for category and upload
+            $subcategoryImage = Image::make($image)->resize(900,1269)->stream();
+            Storage::disk('public')->put('subcategory/'.$imageName,$subcategoryImage);
+        }else{
+            $imageName = $subcategory->image;
+        }
+        $subcategory->name = $request->name;
+        $subcategory->category_id = $request->category_id;
+        $subcategory->slug = $slug;
+        $subcategory->subcategory_description = $request->subcategory_description;
+        $subcategory->image = $imageName;
+        if(isset($request->status))
+          {
+              $subcategory->status = true;
+          }else{
+              $subcategory->status = false;
+          }
+          $subcategory->save();
+        Toastr::success('SubCategory Updated Successfully', 'Success');
+        return redirect()->route('admin.subcategory.index');
+    }
+
+    public function inactive(Request $request,$id)
+    {
+
+        $subcategory = SubCategory::find($id);
+        if($subcategory->status == false)
+        {
+            $subcategory->status = true;
+            $subcategory->save();
+            Toastr::success('SubCategory Active Successfully', 'Success');
+        }else
+        {
+            Toastr::info(' This SubCategory Is Already Actived', 'info');
+        }
+        return redirect()->back();
+    }
+
+    public function active(Request $request,$id)
+    {
+
+        $subcategory = SubCategory::find($id);
+        if($subcategory->status == true)
+        {
+            $subcategory->status = false;
+            $subcategory->save();
+            Toastr::success('SubCategory Inctive Successfully', 'Success');
+        }else
+        {
+            Toastr::info(' This SubCategory Is Already Inactived', 'info');
+        }
+        return redirect()->back();
     }
 
     /**

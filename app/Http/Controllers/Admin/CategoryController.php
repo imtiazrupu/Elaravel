@@ -145,6 +145,12 @@ class CategoryController extends Controller
         $category->slug = $slug;
         $category->category_description = $request->category_description;
         $category->image = $imageName;
+        if(isset($request->status))
+          {
+              $category->status = true;
+          }else{
+              $category->status = false;
+          }
         $category->save();
         Toastr::success('Category Updated Successfully', 'Success');
         return redirect()->route('admin.category.index');

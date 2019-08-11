@@ -52,6 +52,12 @@
                             <img width="120px" src="{{ Storage::disk('public')->url('category/'.$category->image)}}" alt="{{ $category->name}}">
                         </div>
 
+                        <div class="form-group">
+                            <input type="checkbox" id="publish" class="filled-in" name="status" value="1"
+                            {{ $category->status == true? 'checked': ''}}>
+                            <label for="publish"> Publish</label>
+                        </div>
+
                         <a class="btn btn-danger m-t-15 waves-effect" href="{{route('admin.category.index')}}"> BACK</a>
                         <button type="submit" class="btn btn-success m-t-15 waves-effect">UPDATE</button>
                     </form>

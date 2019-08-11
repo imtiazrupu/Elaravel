@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,6 +19,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('frontend.home_content');
+        $categories = Category::active()->get();
+        return view('frontend.home_content',compact('categories'));
     }
 }
