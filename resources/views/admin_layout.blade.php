@@ -1,122 +1,117 @@
+
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
-     <!-- Favicon-->
-     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/font-awesome.min.css') }}">
 
-     <!-- Google Fonts -->
-     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets')}}/backend/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="{{asset('assets')}}/backend/plugins/node-waves/waves.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="{{asset('assets')}}/backend/plugins/animate-css/animate.css" rel="stylesheet" />
 
-     <!-- Bootstrap Core Css -->
-<link href="{{asset('assets')}}/backend/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Morris Chart Css-->
+    <link href="{{asset('assets')}}/backend/plugins/morrisjs/morris.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/ionicons.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/skin-blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/admin.css') }}">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
-     <!-- Waves Effect Css -->
-     <link href="{{asset('assets')}}/backend/plugins/node-waves/waves.css" rel="stylesheet" />
-
-     <!-- Animation Css -->
-     <link href="{{asset('assets')}}/backend/plugins/animate-css/animate.css" rel="stylesheet" />
-
-     <!-- Morris Chart Css-->
-     <link href="{{asset('assets')}}/backend/plugins/morrisjs/morris.css" rel="stylesheet" />
-
-     <!-- Custom Css -->
-     <link href="{{asset('assets')}}/backend/css/style.css" rel="stylesheet">
-
-     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-     <link href="{{asset('assets')}}/backend/css/themes/all-themes.css" rel="stylesheet" />
-     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-
-    @stack('css')
-
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
-<body class="theme-blue">
-        <div class="page-loader-wrapper">
-                <div class="loader">
-                    <div class="preloader">
-                        <div class="spinner-layer pl-red">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div>
-                            <div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Please wait...</p>
-                </div>
-            </div>
-            <!-- #END# Page Loader -->
-            <!-- Overlay For Sidebars -->
-            <div class="overlay"></div>
-            <!-- #END# Overlay For Sidebars -->
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <div class="search-icon">
-                    <i class="material-icons">search</i>
-                </div>
-                <input type="text" placeholder="START TYPING...">
-                <div class="close-search">
-                    <i class="material-icons">close</i>
-                </div>
-            </div>
-            <!-- #END# Search Bar -->
-            <!-- Top Bar -->
-            @include('backend.partial.topbar')
-            <!-- #Top Bar -->
-            <section>
-                <!-- Left Sidebar -->
-                @include('backend.partial.sidebar')
-                <!-- #END# Left Sidebar -->
-                <!-- Right Sidebar -->
-
-            </section>
-
-            <section class="content">
-                @yield('content')
-            </section>
-                <!-- Jquery Core Js -->
-    <script src="{{asset('assets')}}/backend/plugins/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="{{asset('assets')}}/backend/plugins/bootstrap/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-   {{-- <script src="{{asset('assets')}}/backend/plugins/bootstrap-select/js/bootstrap-select.js"></script> --}}
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="{{asset('assets')}}/backend/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="{{asset('assets')}}/backend/plugins/node-waves/waves.js"></script>
-
-    <!-- Custom Js -->
-    <script src="{{asset('assets')}}/backend/js/admin.js"></script>
 
 
-    <!-- Demo Js -->
-    <script src="{{asset('assets')}}/backend/js/demo.js"></script>
-    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-    {!! Toastr::message() !!}
-        <script>
-            @if($errors->any())
-            @foreach($errors->all() as $error)
-            toastr.error('{{$error}}','Error',{
-                closeButton:true,
-                progressBar:true,
-            });
-            @endforeach
-            @endif
-        </script>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
 
-    @stack('js')
+    <!-- Main Header -->
+    @include('backend.partial.topbar')
+
+    <!-- Left side column. contains the logo and sidebar -->
+    @include('backend.partial.sidebar')
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                @yield('page-header')
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+
+            <!--------------------------
+              | Your Page Content Here |
+              -------------------------->
+            @yield('content')
+
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- Main Footer -->
+     @include('backend.partial.footer')
+
+    <!-- Control Sidebar -->
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+    immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<script src="{{ asset('assets/backend/js/jquery.min.js') }}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{{ asset('assets/backend/js/bootstrap.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('assets/backend/js/adminlte.min.js') }}"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+
+
+{!! Toastr::message() !!}
+    <script>
+        @if($errors->any())
+        @foreach($errors->all() as $error)
+        toastr.error('{{$error}}','Error',{
+            closeButton:true,
+            progressBar:true,
+        });
+        @endforeach
+        @endif
+    </script>
+@stack('js')
+
+@yield('script')
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
 </body>
 </html>
 

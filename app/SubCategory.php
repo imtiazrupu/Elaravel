@@ -11,4 +11,9 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function scopeActivesubcategory($query)
+    {
+        return $query->where('status', 1);
+    }
+    
 }

@@ -32,7 +32,15 @@ Route::put('/category/active/{id}','CategoryController@active')->name('category.
 Route::resource('subcategory','SubCategoryController');
 Route::put('/subcategory/inactive/{id}','SubCategoryController@inactive')->name('subcategory.inactive');
 Route::put('/subcategory/active/{id}','SubCategoryController@active')->name('subcategory.active');
+
+//Product
+Route::resource('product','ProductController');
+Route::put('/product/inactive/{id}','ProductController@inactive')->name('product.inactive');
+Route::put('/product/active/{id}','ProductController@active')->name('product.active');
+
 });
+Route::get('ajax-subcat', 'AjaxController@subCat');
+
 
 
 

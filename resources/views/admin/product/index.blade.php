@@ -1,6 +1,6 @@
 @extends('admin_layout')
 
-@section('title','SubCategory')
+@section('title','Product')
 
 @push('css')
 <!-- JQuery DataTable Css -->
@@ -10,9 +10,9 @@
 @section('content')
 <div class="container-fluid">
     <div class="block-header">
-    <a class="btn btn-primary waves-effect" href="{{route('admin.subcategory.create')}}">
+    <a class="btn btn-primary waves-effect" href="{{route('admin.product.create')}}">
         <i class="fa fa-plus"></i>
-        <span>Add New SubCategory</span>
+        <span>Add New Product</span>
     </a>
     </div>
 
@@ -22,8 +22,8 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        ALL SUBCATEGORIES
-                        <span class="badge bg-blue">{{$subcategories->count()}}</span>
+                        ALL PRODUCTS
+                        <span class="badge bg-blue">{{$products->count()}}</span>
                     </h2>
 
                 </div>
@@ -33,44 +33,65 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Product Name</th>
                                     <th>Category Name</th>
-                                    <th>Description</th>
+                                    <th>SubCategory Name</th>
+                                    <th>Short Description</th>
+                                    <th>Price</th>
+                                    <th>Color</th>
+                                    <th>Stock</th>
                                     <th>Status</th>
                                     <th>Image</th>
+                                    <th>Sizes</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Category Name</th>
-                                        <th>Description</th>
-                                        <th>Status</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
+                                    <th>ID</th>
+                                    <th>Product Name</th>
+                                    <th>Category Name</th>
+                                    <th>SubCategory Name</th>
+                                    <th>Short Description</th>
+                                    <th>Price</th>
+                                    <th>Color</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Image</th>
+                                    <th>Sizes</th>
+                                    <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @foreach ($subcategories as $key=>$subcategory)
+                                @foreach ($products as $key=>$product)
                                 <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $subcategory->name}}</td>
-                                <td>{{ $subcategory->category->name}}</td>
-                                <td>{!! str_limit($subcategory->subcategory_description,'20') !!}</td>
+                                <td>{{ $product->name}}</td>
+                                <td>{{ $product->category->name}}</td>
+                                <td>{{ $product->subCategory->name}}</td>
+                                <td>{!! str_limit($product->description,'20') !!}</td>
+                                <td>{{ $product->price}}</td>
+                                <td>{{ $product->color}}</td>
+                                <td>{{ $product->stock}}</td>
                                 <td>
-                                        @if( $subcategory->status == true)
+                                        @if( $product->status == true)
                                         <span class="badge bg-blue">Active</span>
                                         @else
                                         <span class="badge bg-pink"> Inactive</span>
                                         @endif
                                 </td>
-                                <td><img width="80px" src="{{ Storage::disk('public')->url('subcategory/'.$subcategory->image)}}" alt="{{ $subcategory->name}}"></td>
+                                <td><img width="80px" src="{{ Storage::disk('public')->url('product/'.$product->image)}}" alt="{{ $product->name}}"></td>
+
+                                <td> @foreach ($product->productSizes as $siz)
+                                        {{ $siz->size}}
+                                @endforeach
+
+                                </td>
+
                                 <td class="text-center">
-                                        @if($subcategory->status == false)
-                                        <button type="button" class="btn btn-warning waves-effect" onclick="inactiveSubcategory({{ $subcategory->id}})">
-                                            <form id="approval-form" action="{{route('admin.subcategory.inactive',$subcategory->id)}}"
+                                        @if($product->status == false)
+                                        <button type="button" class="btn btn-warning waves-effect" onclick="inactiveProduct({{ $product->id}})">
+                                            <form id="approval-form" action="{{route('admin.product.inactive',$product->id)}}"
                                                 method="POST" style="display:none;">
                                                @csrf
                                                @method('PUT')
@@ -78,8 +99,8 @@
                                             <i class="material-icons">done</i>
                                         </button>
                                         @else
-                                        <button type="button" class="btn btn-success waves-effect" onclick="activeSubcategory({{ $subcategory->id}})">
-                                                <form id="disapproval-form" action="{{route('admin.subcategory.active',$subcategory->id)}}"
+                                        <button type="button" class="btn btn-success waves-effect" onclick="activeProduct({{ $product->id}})">
+                                                <form id="disapproval-form" action="{{route('admin.product.active',$product->id)}}"
                                                     method="POST" style="display:none;">
                                                    @csrf
                                                    @method('PUT')
@@ -88,14 +109,14 @@
                                             </button>
                                         @endif
 
-                                <a href="{{route('admin.subcategory.edit',$subcategory->id)}}" class="btn btn-info waves-effect">
+                                <a href="{{route('admin.product.edit',$product->id)}}" class="btn btn-info waves-effect">
                                 <i class="material-icons">edit</i>
                                 </a>
                                 <button class="btn btn-danger waves-effect" type="button"
-                                onclick="deleteSubcategory({{$subcategory->id}})">
+                                onclick="deleteProduct({{$product->id}})">
                                     <i class="material-icons">delete</i>
                                 </button>
-                            <form id="delete-form-{{$subcategory->id}}" action="{{route('admin.subcategory.destroy',$subcategory->id)}}"
+                            <form id="delete-form-{{$product->id}}" action="{{route('admin.product.destroy',$product->id)}}"
                                  method="POST" style="display:none;">
                                 @csrf
                                 @method('DELETE')
@@ -127,7 +148,7 @@
     <script src="{{asset('assets')}}/backend/js/pages/tables/jquery-datatable.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
-    function deleteSubcategory(id){
+    function deleteProduct(id){
         const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success',
@@ -161,8 +182,8 @@ swalWithBootstrapButtons.fire({
 })
     }
 
-    //Approve SubCategory
-    function inactiveSubcategory(id){
+    //Approve Product
+    function inactiveProduct(id){
                     const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -173,7 +194,7 @@ swalWithBootstrapButtons.fire({
 
             swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
-            text: "You want to active this SubCategory!",
+            text: "You want to active this Product!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, active it!',
@@ -189,15 +210,15 @@ swalWithBootstrapButtons.fire({
             ) {
                 swalWithBootstrapButtons.fire(
                 'Cancelled',
-                'The subcategory remains inactive :)',
+                'The Product remains inactive :)',
                 'info'
                 )
             }
             })
                 }
 
-    //Dispprove SubCategory
-    function activeSubcategory(id){
+    //Dispprove Product
+    function activeProduct(id){
                     const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -208,7 +229,7 @@ swalWithBootstrapButtons.fire({
 
             swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
-            text: "You want to inactive this SubCategory!",
+            text: "You want to inactive this Product!",
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, inactive it!',
@@ -224,7 +245,7 @@ swalWithBootstrapButtons.fire({
             ) {
                 swalWithBootstrapButtons.fire(
                 'Cancelled',
-                'The Subcategory remains active :)',
+                'The Product remains active :)',
                 'info'
                 )
             }

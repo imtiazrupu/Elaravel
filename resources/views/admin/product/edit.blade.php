@@ -8,31 +8,33 @@
 
 @section('content')
 <div class="container-fluid">
-        <form action="{{route('admin.subcategory.store')}}" method="POST" enctype="multipart/form-data">
+        <form name="subCategoryEditForm" action="{{route('admin.subcategory.update',$subcategory->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row clearfix">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                                ADD NEW SUBCATEGORY
-
+                                EDIT SUBCATEGORY
+                                <small>With floating label</small>
                             </h2>
                         </div>
                         <div class="body">
                                 <div class="form-group form-float">
                                         <div class="form-line">
-                                                <label class="form-label">SubCategory Name</label>
-                                            <input type="text" id="name" class="form-control" name="name">
-
+                                            <input type="text" id="name" class="form-control" name="name" value="{{ $subcategory->name}}">
+                                            <label class="form-label">SubCategory Name</label>
                                         </div>
                                     </div>
                             <div class="form-group">
                                 <label for="image">SubCategory Image</label>
                                 <input type="file" name="image">
+                                <img width="120px" src="{{ Storage::disk('public')->url('subcategory/'.$subcategory->image)}}" alt="{{ $subcategory->name}}">
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" id="publish" class="filled-in" name="status" value="1">
+                                <input type="checkbox" id="publish" class="filled-in" name="status" value="1"
+                                {{ $subcategory->status == true? 'checked': ''}}>
                                 <label for="publish"> Publish</label>
                             </div>
                         </div>
@@ -43,7 +45,7 @@
                             <div class="header">
                                 <h2>
                                     CATEGORIES NAME
-                                   
+                                    <small>With floating label</small>
                                 </h2>
                             </div>
                             <div class="body">
@@ -53,7 +55,7 @@
                                         <select name="category_id" id="category" class="form-control show-tick"
                                         >
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name}}</option>
+                                        <option value="{{ $category->id }}">{{ $category->name}}</option>
                                         @endforeach
                                         </select>
                                     </div>
@@ -75,7 +77,7 @@
                                 </h2>
                             </div>
                             <div class="body">
-                                <textarea id="tinymce" name="subcategory_description"></textarea>
+                                <textarea id="tinymce" name="subcategory_description">{{ $subcategory->subcategory_description}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -112,5 +114,8 @@
     tinyMCE.baseURL = '{{asset('assets')}}/backend/plugins/tinymce';
 });
    </script>
+   <script>
+    document.forms['subCategoryEditForm'].elements['category_id'].value = '{{ $subcategory->category_id}}';
+</script>
 
 @endpush
