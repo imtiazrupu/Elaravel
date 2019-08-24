@@ -191,7 +191,7 @@
             });
         });
 
-    var i = 1;
+        var i = 1;
             $('#add').click(function (event) {
                 event.preventDefault();
                 i++;

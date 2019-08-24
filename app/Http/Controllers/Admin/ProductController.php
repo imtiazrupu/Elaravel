@@ -77,6 +77,7 @@ class ProductController extends Controller
         }else{
             $imageName = "default.png";
         }
+
         $data = [
             'category_id' => request('category_id'),
             'subcategory_id' => request('subcategory_id'),
@@ -88,7 +89,8 @@ class ProductController extends Controller
             'price' => request('price'),
             'color' => request('color'),
             'stock' => request('stock'),
-            'image' => $imageName
+            'status' => request('status'),
+            'image' => $imageName,
         ];
 
         $productId = Product::create($data)->id;
@@ -131,7 +133,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $categories = Category::all();
+        $subcategories = SubCategory::all();
+        $productsizes = ProductSize::all();
+        return view('admin.product.edit',compact('product','categories','subcategories','productsizes'));
     }
 
     /**
@@ -152,6 +158,38 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function inactive(Request $request,$id)
+    {
+
+        $product = Product::find($id);
+        if($product->status == false)
+        {
+            $product->status = true;
+            $product->save();
+            Toastr::success('Product Active Successfully', 'Success');
+        }else
+        {
+            Toastr::info(' This Product Is Already Actived', 'info');
+        }
+        return redirect()->back();
+    }
+
+    public function active(Request $request,$id)
+    {
+
+        $product = Product::find($id);
+        if($product->status == true)
+        {
+            $product->status = false;
+            $product->save();
+            Toastr::success('Product Inctive Successfully', 'Success');
+        }else
+        {
+            Toastr::info(' This Product Is Already Inactived', 'info');
+        }
+        return redirect()->back();
+    }
     public function destroy($id)
     {
         //
