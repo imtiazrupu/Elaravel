@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Category;
+use App\Product;
+use App\Slide;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -20,6 +22,8 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::active()->get();
-        return view('frontend.home_content',compact('categories'));
+        $products = Product::active()->limit(9)->get();
+        $slides = Slide::active()->get();
+        return view('frontend.home_content',compact('categories','products','slides'));
     }
 }

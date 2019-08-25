@@ -38,6 +38,10 @@ Route::resource('product','ProductController');
 Route::put('/product/inactive/{id}','ProductController@inactive')->name('product.inactive');
 Route::put('/product/active/{id}','ProductController@active')->name('product.active');
 
+//Slide
+Route::resource('slide','SlideController');
+Route::put('/slide/inactive/{id}','SlideController@inactive')->name('slide.inactive');
+Route::put('/slide/active/{id}','SlideController@active')->name('slide.active');
 });
 Route::get('ajax-subcat', 'AjaxController@subCat');
 

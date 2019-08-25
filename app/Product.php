@@ -21,4 +21,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductSize::class, 'product_id');
     }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
 }

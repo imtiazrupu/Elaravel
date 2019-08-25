@@ -60,6 +60,15 @@
             </a>
            </li>
 
+           <li class="{{Request::is('admin/slide*')? 'active' : ''}}">
+            <a href="{{route('admin.slide.index')}}">
+                <i class="fa fa-shopping-cart"></i>
+               <span>Slide</span>
+            </a>
+           </li>
+
+           <li class="header">SYSTEM</li>
+
            <li>
                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
